@@ -1,23 +1,29 @@
 import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
-import { toggle as toggleStatus } from '../store/todoSlice';
+import { remove, toggle } from '../store/todoSlice';
 import { ITodo } from '../types/todo';
-import React from 'react';
 
 const Todo = ({ content, id, active }: ITodo) => {
   const dispatch = useDispatch();
 
-  const handleToggleTodo = (e: React.MouseEvent) => {
-    e.stopPropagation();
-    dispatch(toggleStatus(id));
+  const handleToggleTodo = () => {
+    dispatch(toggle(id));
+  };
+
+  const handleRemoveTodo = () => {
+    dispatch(remove(id));
   };
 
   return (
     <>
       <TodoContainer>
-        <Toggle type='checkBox' onClick={handleToggleTodo} checked={!active} />
-        <Text active={active}>{content}</Text>
-        <Button>remove</Button>
+        <Toggle
+          type='checkBox'
+          onClick={handleToggleTodo}
+          defaultChecked={!active}
+        />
+        <Text active={String(active)}>{content}</Text>
+        <Button onClick={handleRemoveTodo}>remove</Button>
       </TodoContainer>
     </>
   );
@@ -46,10 +52,11 @@ const Toggle = styled.input`
   }
 `;
 
-const Text = styled.p<{ active: boolean }>`
+const Text = styled.p<{ active: string }>`
   flex: 1;
   font-size: 30px;
-  text-decoration: ${({ active }) => (active ? 'none' : 'line-through')};
+  text-decoration: ${({ active }) =>
+    active === 'true' ? 'none' : 'line-through'};
 `;
 
 const Button = styled.button`
