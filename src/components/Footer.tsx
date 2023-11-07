@@ -19,6 +19,7 @@ export default Footer;
 const FooterWrapper = styled.footer`
   width: 100%;
   height: 5dvh;
+  margin-top: 30px;
   text-align: center;
 `;
 

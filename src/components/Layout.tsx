@@ -2,6 +2,7 @@ import { ReactNode } from 'react';
 import { styled } from 'styled-components';
 import Footer from './Footer';
 import Header from './Header';
+import Input from './Input';
 
 interface LayoutProps {
   children: ReactNode;
@@ -11,7 +12,8 @@ const Layout = ({ children }: LayoutProps) => {
   return (
     <LayoutContainer>
       <Header />
-      <Main>{children}</Main>
+      <Input />
+      {children}
       <Footer />
     </LayoutContainer>
   );
@@ -26,8 +28,4 @@ const LayoutContainer = styled.div`
   min-height: 100dvh;
   background-color: #f5f5f5;
   overflow: hidden;
-`;
-
-const Main = styled.main`
-  flex: 1;
 `;

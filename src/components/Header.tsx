@@ -4,7 +4,6 @@ const Header = () => {
   return (
     <>
       <HeaderWrapper>RTK Todos</HeaderWrapper>
-      <Input placeholder='Add your Todos' />
     </>
   );
 };
@@ -19,12 +18,4 @@ const HeaderWrapper = styled.header`
   font-size: 50px;
   font-weight: 300;
   color: maroon;
-`;
-
-const Input = styled.input`
-  width: 40%;
-  height: 5dvh;
-  padding: 0 20px;
-  border-radius: 30px;
-  font-size: 26px;
 `;
