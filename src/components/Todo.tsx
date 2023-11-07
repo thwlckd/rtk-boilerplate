@@ -2,11 +2,13 @@ import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import { toggle as toggleStatus } from '../store/todoSlice';
 import { ITodo } from '../types/todo';
+import React from 'react';
 
 const Todo = ({ content, id, active }: ITodo) => {
   const dispatch = useDispatch();
 
-  const handleToggleTodo = () => {
+  const handleToggleTodo = (e: React.MouseEvent) => {
+    e.stopPropagation();
     dispatch(toggleStatus(id));
   };
 
@@ -15,7 +17,7 @@ const Todo = ({ content, id, active }: ITodo) => {
       <TodoContainer>
         <Toggle type='checkBox' onClick={handleToggleTodo} checked={!active} />
         <Text active={active}>{content}</Text>
-        <Button>clear</Button>
+        <Button>remove</Button>
       </TodoContainer>
     </>
   );
@@ -56,7 +58,7 @@ const Button = styled.button`
   margin-right: 10px;
   border: none;
   padding: 0;
-  font-size: 18px;
+  font-size: 14px;
   cursor: pointer;
   background-color: #60d0c0;
 

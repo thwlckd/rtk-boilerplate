@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { RootState } from '../store';
 import Todo from './Todo';
@@ -5,16 +6,44 @@ import styled from 'styled-components';
 
 const TodoList = () => {
   const { todos } = useSelector((state: RootState) => state.todo);
+  const [switchTodos, setSwitchTodos] = useState('ALL');
 
   return (
     <TodosCotainer>
-      {todos?.map(({ content, id, active }) => (
-        <Todo content={content} id={id} active={active} />
-      ))}
+      {todos?.map(({ content, id, active }) => {
+        switch (switchTodos) {
+          case 'ALL':
+            return <Todo content={content} id={id} active={active} />;
+          case 'ACTIVE':
+            return active && <Todo content={content} id={id} active={active} />;
+          case 'DONE':
+            return active || <Todo content={content} id={id} active={active} />;
+          default:
+            return false;
+        }
+      })}
       <StateBar>
-        <State>ALL</State>
-        <State>NOT YET</State>
-        <State>DONE</State>
+        <State
+          onClick={() => {
+            setSwitchTodos('ALL');
+          }}
+        >
+          ALL
+        </State>
+        <State
+          onClick={() => {
+            setSwitchTodos('ACTIVE');
+          }}
+        >
+          ACTIVE
+        </State>
+        <State
+          onClick={() => {
+            setSwitchTodos('DONE');
+          }}
+        >
+          DONE
+        </State>
       </StateBar>
     </TodosCotainer>
   );
