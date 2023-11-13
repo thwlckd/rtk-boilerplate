@@ -15,9 +15,9 @@ export const todoSlice = createSlice({
   initialState,
   reducers: {
     add: (state, action: PayloadAction<string>) => {
-      const id = state.todos.length + 1;
+      const id = crypto.randomUUID();
       localStorage.setItem(
-        String(id),
+        id,
         JSON.stringify({
           id: id,
           content: action.payload,
@@ -30,7 +30,7 @@ export const todoSlice = createSlice({
         active: true,
       });
     },
-    toggle: (state, action: PayloadAction<number>) => {
+    toggle: (state, action: PayloadAction<string>) => {
       state.todos = state.todos.map((todo) => {
         if (todo.id === action.payload) {
           const item = localStorage.getItem(String(action.payload));
@@ -49,7 +49,7 @@ export const todoSlice = createSlice({
         } else return todo;
       });
     },
-    remove: (state, action: PayloadAction<number>) => {
+    remove: (state, action: PayloadAction<string>) => {
       localStorage.removeItem(String(action.payload));
       state.todos = state.todos.filter(({ id }) => id !== action.payload);
     },

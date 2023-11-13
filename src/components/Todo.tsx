@@ -22,7 +22,7 @@ const Todo = ({ content, id, active }: ITodo) => {
           onClick={handleToggleTodo}
           defaultChecked={!active}
         />
-        <Text active={String(active)}>{content}</Text>
+        <Text $active={active}>{content}</Text>
         <Button onClick={handleRemoveTodo}>remove</Button>
       </TodoContainer>
     </>
@@ -52,11 +52,10 @@ const Toggle = styled.input`
   }
 `;
 
-const Text = styled.p<{ active: string }>`
+const Text = styled.p<{ $active: boolean }>`
   flex: 1;
   font-size: 30px;
-  text-decoration: ${({ active }) =>
-    active === 'true' ? 'none' : 'line-through'};
+  text-decoration: ${({ $active }) => ($active ? 'none' : 'line-through')};
 `;
 
 const Button = styled.button`

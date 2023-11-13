@@ -1,4 +1,4 @@
-import { Children, useState } from 'react';
+import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { RootState } from '../store';
 import Todo from './Todo';
@@ -10,24 +10,26 @@ const TodoList = () => {
 
   return (
     <TodosCotainer>
-      {Children.toArray(
-        todos?.map(({ content, id, active }) => {
-          switch (switchTodos) {
-            case 'ALL':
-              return <Todo content={content} id={id} active={active} />;
-            case 'ACTIVE':
-              return (
-                active && <Todo content={content} id={id} active={active} />
-              );
-            case 'DONE':
-              return (
-                active || <Todo content={content} id={id} active={active} />
-              );
-            default:
-              return false;
-          }
-        })
-      )}
+      {todos?.map(({ content, id, active }) => {
+        switch (switchTodos) {
+          case 'ALL':
+            return <Todo key={id} content={content} id={id} active={active} />;
+          case 'ACTIVE':
+            return (
+              active && (
+                <Todo key={id} content={content} id={id} active={active} />
+              )
+            );
+          case 'DONE':
+            return (
+              active || (
+                <Todo key={id} content={content} id={id} active={active} />
+              )
+            );
+          default:
+            return false;
+        }
+      })}
       <StateBar>
         <State
           onClick={() => {
